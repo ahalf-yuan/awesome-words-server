@@ -18,7 +18,7 @@ while test $# -gt 0; do
   esac
 done
 
-cd ../../pharos
+cd ../../awesome-words-server
 source .env
-go build -o cmd/pharos/pharos cmd/pharos/main.go
-cmd/pharos/pharos -env $env &
+go build -o cmd/wordshub/wordshub cmd/wordshub/main.go
+cmd/wordshub/wordshub -env $env

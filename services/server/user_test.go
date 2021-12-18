@@ -2,9 +2,9 @@ package server
 
 import (
 	"net/http"
-	"pharos/services/store"
 	"strings"
 	"testing"
+	"wordshub/services/store"
 
 	"github.com/stretchr/testify/assert"
 )

@@ -1,26 +1,26 @@
 version: "3"
 services:
-  pharos:
-    image: kramat/pharos
+  wordshub:
+    image: kramat/wordshub
     env_file:
       - ../.env
     environment:
-      PHAROS_DB_HOST: db
+      WORDSHUB_DB_HOST: db
     depends_on:
       - db
     ports:
-      - ${PHAROS_PORT}:${PHAROS_PORT}
+      - ${WORDSHUB_PORT}:${WORDSHUB_PORT}
   db:
     image: postgres
     environment:
-      POSTGRES_USER: ${PHAROS_DB_USER}
-      POSTGRES_PASSWORD: ${PHAROS_DB_PASSWORD}
-      POSTGRES_DB: ${PHAROS_DB_NAME}
+      POSTGRES_USER: ${WORDSHUB_DB_USER}
+      POSTGRES_PASSWORD: ${WORDSHUB_DB_PASSWORD}
+      POSTGRES_DB: ${WORDSHUB_DB_NAME}
     ports:
-      - ${PHAROS_DB_PORT}:${PHAROS_DB_PORT}
+      - ${WORDSHUB_DB_PORT}:${WORDSHUB_DB_PORT}
     volumes:
-      - postgresql:/var/lib/postgresql/pharos
-      - postgresql_data:/var/lib/postgresql/pharos/data
+      - postgresql:/var/lib/postgresql/wordshub
+      - postgresql_data:/var/lib/postgresql/wordshub/data
 volumes:
   postgresql: {}
   postgresql_data: {}

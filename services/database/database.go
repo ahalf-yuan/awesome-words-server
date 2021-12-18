@@ -1,7 +1,7 @@
 package database
 
 import (
-	"pharos/services/conf"
+	"wordshub/services/conf"
 
 	"github.com/go-pg/pg/v10"
 )

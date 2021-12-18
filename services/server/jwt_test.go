@@ -1,8 +1,8 @@
 package server
 
 import (
-	"pharos/services/conf"
 	"testing"
+	"wordshub/services/conf"
 
 	"github.com/stretchr/testify/assert"
 )

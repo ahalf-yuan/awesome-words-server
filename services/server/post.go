@@ -2,9 +2,9 @@ package server
 
 import (
 	"net/http"
-	"pharos/services/store"
 	"strconv"
 	"time"
+	"wordshub/services/store"
 
 	"github.com/gin-gonic/gin"
 )

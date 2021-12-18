@@ -2,7 +2,7 @@ package server
 
 import (
 	"net/http"
-	"pharos/services/store"
+	"wordshub/services/store"
 
 	"github.com/gin-gonic/gin"
 )

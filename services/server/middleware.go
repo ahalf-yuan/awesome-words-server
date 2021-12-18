@@ -4,8 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"pharos/services/store"
 	"strings"
+	"wordshub/services/store"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"

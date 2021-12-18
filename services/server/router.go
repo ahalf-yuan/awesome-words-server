@@ -2,10 +2,9 @@ package server
 
 import (
 	"net/http"
-	"pharos/services/conf"
-	"pharos/services/store"
+	"wordshub/services/conf"
+	"wordshub/services/store"
 
-	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,8 +18,14 @@ func setRouter(cfg conf.Config) *gin.Engine {
 
 	// Serve static files to frontend if server is started in production environment
 	if cfg.Env == "prod" {
-		router.Use(static.Serve("/", static.LocalFile("./assets/build", true)))
+		// router.Use(static.Serve("/", static.LocalFile("./assets/build", true)))
 	}
+
+	router.GET("/test", func(c *gin.Context) {
+		c.JSON(http.StatusAccepted, gin.H{
+			"message": "success",
+		})
+	})
 
 	// Create API route group
 	api := router.Group("/api")

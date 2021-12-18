@@ -5,15 +5,15 @@ import (
 	"fmt"
 	"os"
 
-	"pharos/services/logging"
+	"wordshub/services/logging"
 )
 
 func usage() {
-	fmt.Print(`This program runs Pharos backend server.
+	fmt.Print(`This program runs Wordshub backend server.
 
 Usage:
 
-pharos [arguments]
+wordshub [arguments]
 
 Supported arguments:
 

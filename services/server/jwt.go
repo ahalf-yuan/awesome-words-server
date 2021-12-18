@@ -4,10 +4,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"pharos/services/conf"
-	"pharos/services/store"
 	"strconv"
 	"time"
+	"wordshub/services/conf"
+	"wordshub/services/store"
 
 	"github.com/cristalhq/jwt/v3"
 	"github.com/rs/zerolog/log"

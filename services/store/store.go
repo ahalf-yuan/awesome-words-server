@@ -3,10 +3,10 @@ package store
 import (
 	"errors"
 	"fmt"
-	"pharos/services/conf"
-	"pharos/services/database"
 	"regexp"
 	"strings"
+	"wordshub/services/conf"
+	"wordshub/services/database"
 
 	"github.com/go-pg/pg/v10"
 	"github.com/rs/zerolog/log"

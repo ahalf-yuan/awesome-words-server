@@ -8,14 +8,14 @@ import (
 )
 
 const (
-	hostKey       = "PHAROS_HOST"
-	portKey       = "PHAROS_PORT"
-	dbHostKey     = "PHAROS_DB_HOST"
-	dbPortKey     = "PHAROS_DB_PORT"
-	dbNameKey     = "PHAROS_DB_NAME"
-	dbUserKey     = "PHAROS_DB_USER"
-	dbPasswordKey = "PHAROS_DB_PASSWORD"
-	jwtSecretKey  = "PHAROS_JWT_SECRET"
+	hostKey       = "WORDSHUB_HOST"
+	portKey       = "WORDSHUB_PORT"
+	dbHostKey     = "WORDSHUB_DB_HOST"
+	dbPortKey     = "WORDSHUB_DB_PORT"
+	dbNameKey     = "WORDSHUB_DB_NAME"
+	dbUserKey     = "WORDSHUB_DB_USER"
+	dbPasswordKey = "WORDSHUB_DB_PASSWORD"
+	jwtSecretKey  = "WORDSHUB_JWT_SECRET"
 )
 
 type Config struct {

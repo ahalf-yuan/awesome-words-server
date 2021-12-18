@@ -1,3 +1,3 @@
 #! /bin/bash
 
-kill $(pidof pharos)
+kill $(pidof wordshub)

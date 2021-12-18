@@ -5,9 +5,9 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
-	"pharos/services/conf"
-	"pharos/services/store"
 	"strings"
+	"wordshub/services/conf"
+	"wordshub/services/store"
 
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog/log"

@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"os"
 
-	"pharos/services/conf"
-	"pharos/services/database"
-	"pharos/services/store"
+	"wordshub/services/conf"
+	"wordshub/services/database"
+	"wordshub/services/store"
 
 	"github.com/go-pg/migrations/v8"
 )

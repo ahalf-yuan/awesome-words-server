@@ -1,9 +1,9 @@
 package store
 
 import (
-	"pharos/services/conf"
-	"pharos/services/database"
 	"testing"
+	"wordshub/services/conf"
+	"wordshub/services/database"
 
 	"github.com/stretchr/testify/assert"
 )

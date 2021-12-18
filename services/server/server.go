@@ -6,11 +6,11 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
-	"pharos/services/conf"
-	"pharos/services/database"
-	"pharos/services/store"
 	"syscall"
 	"time"
+	"wordshub/services/conf"
+	"wordshub/services/database"
+	"wordshub/services/store"
 
 	"github.com/rs/zerolog/log"
 )
