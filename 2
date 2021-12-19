@@ -1,0 +1,372 @@
+awesome-words-server
+├─.editorconfig
+├─.env
+├─.gitignore
+├─LICENSE
+├─README.md
+├─go.mod
+├─go.sum
+├─services
+|    ├─store
+|    |   ├─catalogs.go
+|    |   ├─main_test.go
+|    |   ├─posts.go
+|    |   ├─posts_test.go
+|    |   ├─store.go
+|    |   ├─store_test.go
+|    |   ├─users.go
+|    |   └users_test.go
+|    ├─server
+|    |   ├─catalog.go
+|    |   ├─jwt.go
+|    |   ├─jwt_test.go
+|    |   ├─main_test.go
+|    |   ├─middleware.go
+|    |   ├─middleware_test.go
+|    |   ├─post.go
+|    |   ├─post_test.go
+|    |   ├─router.go
+|    |   ├─server.go
+|    |   ├─user.go
+|    |   └user_test.go
+|    ├─logging
+|    |    └logging.go
+|    ├─database
+|    |    ├─database.go
+|    |    └database_test.go
+|    ├─conf
+|    |  ├─conf.go
+|    |  └conf_test.go
+|    ├─cli
+|    |  └cli.go
+├─scripts
+|    ├─deploy.sh
+|    └stop.sh
+├─migrations
+|     ├─1_addUsersTable.go
+|     ├─2_addPostsTable.go
+|     ├─3_addCatalogsTable.go
+|     └main.go
+├─docker
+|   ├─Dockerfile
+|   └docker-compose.yml
+├─cmd
+|  ├─wordshub
+|  |    ├─main.go
+|  |    └wordshub
+├─.git
+|  ├─COMMIT_EDITMSG
+|  ├─FETCH_HEAD
+|  ├─HEAD
+|  ├─ORIG_HEAD
+|  ├─config
+|  ├─description
+|  ├─index
+|  ├─refs
+|  |  ├─tags
+|  |  ├─remotes
+|  |  |    ├─origin
+|  |  |    |   └master
+|  |  ├─heads
+|  |  |   └master
+|  ├─objects
+|  |    ├─pack
+|  |    ├─info
+|  |    ├─ff
+|  |    | └93e363f0c7ecb733c404e15aecd6429b0251ad
+|  |    ├─fc
+|  |    | ├─0a68c6dd4144b460e8563b563210a9f15caed6
+|  |    | └44b0a3796c0e0a64c3d858ca038bd4570465d9
+|  |    ├─fa
+|  |    | └8513924db42550fedefdbd5ebf8a48e8c5faec
+|  |    ├─f5
+|  |    | └fb7b8daf9ef1a6c624dad35b6676bd5d4e2d63
+|  |    ├─f3
+|  |    | └090f61477268fbe1558224105bea4f0823de3b
+|  |    ├─f2
+|  |    | └24fa4015b71e7ff02a832a2c262c67c36b496a
+|  |    ├─f1
+|  |    | ├─2b34986e762cfd6c68e6a0835051ae3453a5e6
+|  |    | └c3bcf78cd7f1607d0f7dc21cd3463a29760fb7
+|  |    ├─f0
+|  |    | └e5b2b9c12b1dcf5f1ca5e8c708ddd4219a11c6
+|  |    ├─ef
+|  |    | ├─28505ce0988d268a310f8e19bbe2aadde5786d
+|  |    | ├─93a5fb1a347e9294bf1e20739eb390dee569e0
+|  |    | └e1959fd76b8112a908d91b9696fb541f0e14ec
+|  |    ├─ec
+|  |    | ├─f4ad9bcddd0f2b1bc2f2a91e919e99b770bd44
+|  |    | └f88a24d608bdc348446fd0d21398dc9fbec30e
+|  |    ├─e9
+|  |    | └e57dc4d41b9b46e05112e9f45b7ea6ac0ba15e
+|  |    ├─e7
+|  |    | └272e9000ddcdabd8dc72a5a3fbc2be9fdb56f3
+|  |    ├─e6
+|  |    | └9de29bb2d1d6434b8b29ae775ad8c2e48c5391
+|  |    ├─e5
+|  |    | └ef49e872a49288f45bd06bee8ade237ba25946
+|  |    ├─e3
+|  |    | └6437672eb824cdd3fdc71e1100e304dc9b9ced
+|  |    ├─e1
+|  |    | └6dc1e2477cb580e2679e70e85e9be8d2058dbc
+|  |    ├─e0
+|  |    | └a0e5232d19051d4b0bdd91e830f8a2952d4e5c
+|  |    ├─df
+|  |    | └a34b181762c225ba8625fce56f967051086ffd
+|  |    ├─dc
+|  |    | ├─080fd714d0ffe52d9e7f129f9f05b3e38b9d88
+|  |    | └fa0604c824c9ec29263f0e61ac938f99d68ba6
+|  |    ├─db
+|  |    | ├─2da2fa922da37b16f6a1f3b3404b9ee18b7492
+|  |    | └efb24e44af5192ae349f144973deacaa4e0ec6
+|  |    ├─d6
+|  |    | └89e55e7b19af8723d47fe84876f9ca52c44fba
+|  |    ├─d5
+|  |    | └e536b5b380081c652bf2a5a9a44d1cde207b52
+|  |    ├─d3
+|  |    | └3815f70f34cb25dfc4c4b98b05063effb6e8d4
+|  |    ├─d1
+|  |    | └50c35bb1b43a90bb259cc5dbed790f16851851
+|  |    ├─d0
+|  |    | └dbf1e962f20d0ec5c60c70d8ce6cff5a642b62
+|  |    ├─cd
+|  |    | ├─bd6b0954728473956e4f0a93962c4f59d0fd2f
+|  |    | └f7b8b57d393d77a8aeeb098ef31550b6d3702c
+|  |    ├─cb
+|  |    | └386420006fab759cac09a91169b221fe486822
+|  |    ├─c9
+|  |    | └0eb814a4d8190ed7058104dcc76d77d7b2b0b9
+|  |    ├─c7
+|  |    | └0c608e786c45cfbaa59aaeab51a82bd7041be8
+|  |    ├─c0
+|  |    | ├─852cfa55875930e8bdcf06aedd3f3057f7762a
+|  |    | └ba9d19c8c3a90c11b3d7491459d1b496a8074e
+|  |    ├─be
+|  |    | └a4cae4131d9cbe3019bdd91106c3eb58b801e8
+|  |    ├─bb
+|  |    | ├─31e7ead5cc735632e3979656f2634ab2166549
+|  |    | └5c5f2459cab62159275914feaf85bacbab1f34
+|  |    ├─b9
+|  |    | └1c2f5a89420aae3ed25f5d9ae833a36e803c7b
+|  |    ├─b6
+|  |    | └706191c7464caf1559ef76b5cf26af9a7cfb92
+|  |    ├─b3
+|  |    | └806ac95b986df0920e873d948bd5ddbe1507a4
+|  |    ├─b2
+|  |    | └0604f2ae5a8db7d95ef42301e6e35f3986f430
+|  |    ├─b0
+|  |    | └5ee47c691df9b8a99649bc14947a6e6848367d
+|  |    ├─af
+|  |    | └150916b61e926e368953c7a5923daa1a44e589
+|  |    ├─ae
+|  |    | ├─9e348b497206d8a14af9335d3341c3345385b4
+|  |    | └d99a0fa19aa4e750a378c77a00a3ab9069eace
+|  |    ├─ad
+|  |    | └77c4804bd7b395ca49b1be14012261461c8f08
+|  |    ├─a6
+|  |    | └5bebd42c4def0b42eaec855972619870e527cc
+|  |    ├─a5
+|  |    | └50805b9bd50e265e278ba3890fcf19c9abe2dd
+|  |    ├─a4
+|  |    | └e47a6545bc15971f8f63fba70e4013df88a664
+|  |    ├─a3
+|  |    | └c2e0257416edfaf81c821d74f3fe47de76dc0f
+|  |    ├─a1
+|  |    | ├─1777cc471a4344702741ab1c8a588998b1311a
+|  |    | └cee9165adf47a81247b2b020908cd061c9723f
+|  |    ├─9c
+|  |    | └3bb0e0bf4b840842c9ac7157a22524000dbf7a
+|  |    ├─9b
+|  |    | └52b8c5c85388471b281d3e958caacc94762217
+|  |    ├─99
+|  |    | ├─1028852340c89fa24a002436bf0f0db2b703b6
+|  |    | ├─3ae34ad09b2d586cf8200c1e5d06fdd685a42a
+|  |    | └f324243d2fa7c0c59ccaf2feeb4cf34a317a1c
+|  |    ├─95
+|  |    | ├─f3df33da28457d81a28e520d935165ba4cea21
+|  |    | └f49ac7b60a3300feb1abc1400d552eeb745947
+|  |    ├─93
+|  |    | └7fcb6295c2cc335120d6201704020422408790
+|  |    ├─8e
+|  |    | ├─16ac27c1274ff73543e26ca290be652829d6ce
+|  |    | └eb46a0b07ada5dfae4298d1ee3d54ad97d68a5
+|  |    ├─8b
+|  |    | └ae61ad8b47e7e468dd1b9aa5e1a8f803b7cdef
+|  |    ├─8a
+|  |    | └ffc76193b0704a4981aa6bf85252734946a2a0
+|  |    ├─86
+|  |    | └22837f3f8931ed093134a63d62d58badbc9858
+|  |    ├─84
+|  |    | ├─72f970b6fd2728508b97fdd9de3fe8fd5338c4
+|  |    | └94782570196abc432dc23bae4ef31978dd9515
+|  |    ├─82
+|  |    | └ae1bc92cb74242a15377322e9825c01870de7c
+|  |    ├─81
+|  |    | └6ea045d32498a617283d0ee0ddf030a349cc8e
+|  |    ├─80
+|  |    | └12ebac899c66a1b9500dfe274bd2519d620e3d
+|  |    ├─7d
+|  |    | └bcdef2ebfd74d7c9178b6595e97108af98f289
+|  |    ├─70
+|  |    | └af0a091555aaf6b5c217bf71dc49313c7dd759
+|  |    ├─6e
+|  |    | └665c811f311fc20222cb0f1219be9367616dcc
+|  |    ├─6d
+|  |    | └eac5cf18e44c8f8fa753b39623973def4b6ca0
+|  |    ├─6c
+|  |    | └16b4f9c23c3f2176fa79d651e749c6bb3c8c77
+|  |    ├─6b
+|  |    | └c481c783905c56d538dd5e3fcf214b82d7c42d
+|  |    ├─64
+|  |    | └ffeca027489d231fbb452744c1802d5f779392
+|  |    ├─62
+|  |    | └3e9ee9326a8e1ff6f3308a805b5bb057d068d4
+|  |    ├─61
+|  |    | └5f30bea3128d5c88cbe7a86b31975d18d525d1
+|  |    ├─5d
+|  |    | └6e148eab808d70b6a2e6c3fbd9791e6cd8dd70
+|  |    ├─5c
+|  |    | └dfb60fb2acfd5a1575acd6c20490ce148da8ea
+|  |    ├─5a
+|  |    | ├─a4854e00c713b28205e836c650f693cf828467
+|  |    | └bdfb3104c3e3dcb8f11f6242f976e1f77b0a58
+|  |    ├─59
+|  |    | └8fca6d0b9b6fce6a1f2480974f59d71a03dba3
+|  |    ├─54
+|  |    | └7391fa8a1f97a365e6bca382197b781b4d549c
+|  |    ├─53
+|  |    | ├─00bd5bf30eb2fd4f1f5eb3bf5d833ace3d4476
+|  |    | ├─0fa960fe796a2a11875a6b97bef973055685b6
+|  |    | └b061a851286a03e673898b9b8cda7cca027b39
+|  |    ├─52
+|  |    | └ee96d4b31b624a68ce1b7467ecec87dde8fead
+|  |    ├─50
+|  |    | └2246dce3eebdd4856536c8b074265883aab14b
+|  |    ├─4f
+|  |    | └9597d501af60660263047010c8a5220c83d09f
+|  |    ├─4e
+|  |    | ├─306e34c461f8483dd101d57990539b649f3904
+|  |    | └567ecb06b93dabad7388cd6837fc7abf6cce4a
+|  |    ├─4d
+|  |    | └0aaba6987db1569b7f1d4237fd2521bced00d6
+|  |    ├─4a
+|  |    | ├─605df2c749a307a69b776ae04249b383a360d8
+|  |    | └6fb98ed69b91d811900fa706d97f4c3fb5e9a5
+|  |    ├─48
+|  |    | └38553b7b433a11ebbcb1f15c576205d2e53a24
+|  |    ├─46
+|  |    | └c0030cbb8a91ae0acf7e77f05732e313ea26cf
+|  |    ├─44
+|  |    | └14d96c9a02c2024d7b7e74fa89f74eef7c8980
+|  |    ├─42
+|  |    | └04cae89434574cfc971f3c546290a944f4a166
+|  |    ├─3f
+|  |    | ├─71bc3c140d890b0339d755425a9437a7c2171d
+|  |    | ├─8148729d24d5915d7500015c3a0745d9330044
+|  |    | └845f1e3c1fccf4b55402c3a7cb278b5db9398d
+|  |    ├─3e
+|  |    | └dd5c70a5915c0d4db9c26608666fbf5f0e0ecb
+|  |    ├─3c
+|  |    | ├─3629e647f5ddf82548912e337bea9826b434af
+|  |    | └c3701bcc1c36ffc9b043e26ca1d5f22b68d552
+|  |    ├─38
+|  |    | └7acf82dfb6008074e3f936f35a97aa55265e82
+|  |    ├─36
+|  |    | └0201916fb9f8dd28c309584cc2093a028316f4
+|  |    ├─35
+|  |    | ├─13c7f0e23a0b57996a2cc0ff315ff866e1aea9
+|  |    | └e2631439f82209f2bfe7eb938cb7ce9871c08e
+|  |    ├─34
+|  |    | ├─21f50a405fd6f5f1f20421752f376bdde91569
+|  |    | ├─5cdc327c621e514986dd89705087547781f341
+|  |    | └ee7948858fab62e68a3df90a728bf41331d2b3
+|  |    ├─33
+|  |    | └7f7ccde139f14b77e48703daea96a1a3205d67
+|  |    ├─32
+|  |    | └ab8672e1b417208b5cbfd8528a203b8bf1bfe2
+|  |    ├─31
+|  |    | ├─0ba4aff255ce8b222ab92a5e21aa55341cc306
+|  |    | ├─263ab9ca62f55a710704c379a378248353fb9b
+|  |    | └86f3f0795ab612d5508593672dc9ad94bccca0
+|  |    ├─30
+|  |    | ├─958f502fcee7c1828a6b3ff51f07772065ee34
+|  |    | └ce42cd713d2db6f3036f358c27b816630e8fcc
+|  |    ├─2f
+|  |    | ├─59d819a267823a2a538966523e445299f25694
+|  |    | └fc5da12e08156aedd86492bc626c4d0b30fef6
+|  |    ├─2e
+|  |    | └5d116cb3cf6c98b6be09364c30dd3d9c2c0f61
+|  |    ├─2d
+|  |    | └86110ef980661ad08fe5ca51c6bb554c271d1b
+|  |    ├─2c
+|  |    | └adc98c05dae68aee415431333bfd6b8b4889c6
+|  |    ├─29
+|  |    | └25d9dbbfcac5c58b011927079915f522cbf5e3
+|  |    ├─28
+|  |    | └aaea88030b5edc3615612936650fc7de9d87f0
+|  |    ├─24
+|  |    | └5d157d5e5a836d7dadfc35f2dd6369be8a53d1
+|  |    ├─23
+|  |    | └b571392de39cc6294f7828fc2deea8129e8fe2
+|  |    ├─21
+|  |    | ├─6d791e180e2461127f4636eb25100e29e2c363
+|  |    | └caf9071ba28f2a878a6b8c2aaaad033671f819
+|  |    ├─1f
+|  |    | └fa985f6579522e4af0172d6bb084d8a76d6d63
+|  |    ├─1d
+|  |    | └19fd91b9909fda9486e5c3ce47c53bb06c5d0a
+|  |    ├─1a
+|  |    | └ddc0458ccc1606e5b20b515cd1777c5bf5ee92
+|  |    ├─17
+|  |    | └472b4983b19dc20d06104aa47b88ce90871fd0
+|  |    ├─16
+|  |    | ├─058bbcd647710e06000ff6272073a9af5f9ba7
+|  |    | └180affd4e95ecd3c068f6d4357ff7e2ed3896d
+|  |    ├─15
+|  |    | └dc419c3f499fd803201aa2d84b87d2f2e42636
+|  |    ├─13
+|  |    | └5ebd47328be96a6608a0798ab1caa650550c08
+|  |    ├─0e
+|  |    | └5b27ba2bc28927e0a0c9e8646d841d246e25a6
+|  |    ├─0d
+|  |    | ├─2c017f740ca18936cc583c7d7f4f97adbc1d2a
+|  |    | └48428e3a7f31c6723c8799cfca196202e6f8a5
+|  |    ├─0c
+|  |    | └bd7c168a86f6930bc6df4cd7a02a2d62fc3082
+|  |    ├─0b
+|  |    | └b0e884b7e8a7b36e23b79c6cf34609ff4ea729
+|  |    ├─07
+|  |    | └abae7f3f13f69d74e23bec7c60c86cdd7b3c9b
+|  |    ├─06
+|  |    | └ed0d6365af181e9f37baf275b380866892a156
+|  |    ├─05
+|  |    | └ce626b0e546ca119038ac6e65aac8d67656db1
+|  |    ├─03
+|  |    | └1d31e82d9227a8aba2f54999e2a66ef7f2060d
+|  |    ├─02
+|  |    | └a9dc777e68c29cdde6ad02acef83dbb0313007
+|  |    ├─00
+|  |    | └95397f7e0be533bd2135265fe2e73a0a8afda9
+|  ├─logs
+|  |  ├─HEAD
+|  |  ├─refs
+|  |  |  ├─remotes
+|  |  |  |    ├─origin
+|  |  |  |    |   └master
+|  |  |  ├─heads
+|  |  |  |   └master
+|  ├─info
+|  |  └exclude
+|  ├─hooks
+|  |   ├─applypatch-msg.sample
+|  |   ├─commit-msg.sample
+|  |   ├─fsmonitor-watchman.sample
+|  |   ├─post-update.sample
+|  |   ├─pre-applypatch.sample
+|  |   ├─pre-commit.sample
+|  |   ├─pre-merge-commit.sample
+|  |   ├─pre-push.sample
+|  |   ├─pre-rebase.sample
+|  |   ├─pre-receive.sample
+|  |   ├─prepare-commit-msg.sample
+|  |   └update.sample

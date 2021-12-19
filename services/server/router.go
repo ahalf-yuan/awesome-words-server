@@ -35,6 +35,13 @@ func setRouter(cfg conf.Config) *gin.Engine {
 		api.POST("/signin", gin.Bind(store.User{}), signIn)
 	}
 
+	// Create API route group
+	catalog := api.Group("/catalog")
+	catalog.Use(authorization)
+	{
+		catalog.POST("/create", gin.Bind(store.Catalog{}), createCatalog)
+	}
+
 	authorized := api.Group("/")
 	authorized.Use(authorization)
 	{
