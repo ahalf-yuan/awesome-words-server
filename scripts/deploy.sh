@@ -20,5 +20,5 @@ done
 
 cd ../../awesome-words-server
 source .env
-go build -o cmd/wordshub/wordshub cmd/wordshub/main.go
-cmd/wordshub/wordshub -env $env
+go build -o cmd/wordshub main.go
+cmd/wordshub -env $env
