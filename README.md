@@ -11,22 +11,15 @@ awesome-words-server
 ├─services
 |    ├─store
 |    |   ├─catalogs.go
-|    |   ├─main_test.go
-|    |   ├─posts.go
-|    |   ├─posts_test.go
-|    |   ├─store.go
-|    |   ├─store_test.go
-|    |   ├─users.go
-|    |   └users_test.go
+|    |   ├─...
 |    ├─server
+|    |   ├─...
 |    ├─logging
-|    |    └logging.go
+|    |   └logging.go
 |    ├─database
-|    |    ├─database.go
-|    |    └database_test.go
+|    |   ├─...
 |    ├─conf
-|    |  ├─conf.go
-|    |  └conf_test.go
+|    |   ├─...
 |    ├─cli
 |    |  └cli.go
 ├─scripts
