@@ -1,0 +1,90 @@
+basePath: /api/v1
+definitions:
+  store.Post:
+    properties:
+      content:
+        maxLength: 5000
+        minLength: 5
+        type: string
+      createdAt:
+        type: string
+      id:
+        type: integer
+      modifiedAt:
+        type: string
+      title:
+        maxLength: 50
+        minLength: 3
+        type: string
+    required:
+    - content
+    - title
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server celler server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /accounts/{id}:
+    get:
+      consumes:
+      - application/json
+      description: get string by ID
+      parameters:
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/store.Post'
+      summary: Show an account
+      tags:
+      - accounts
+  /example/helloworld:
+    get:
+      consumes:
+      - application/json
+      description: do ping
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: ping example
+      tags:
+      - example
+  /task:
+    get:
+      consumes:
+      - application/json
+      description: 查看迁移任务详细信息
+      parameters:
+      - description: task_id
+        in: path
+        name: task_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      summary: 查看迁移任务详细信息
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"

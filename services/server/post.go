@@ -9,6 +9,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// @BasePath /api/v1
+
+// PingExample godoc
+// @Summary ping example
+// @Schemes
+// @Description do ping
+// @Tags example
+// @Accept json
+// @Produce json
+// @Success 200 {string} Helloworld
+// @Router /example/helloworld [get]
 func createPost(ctx *gin.Context) {
 	post := ctx.MustGet(gin.BindKey).(*store.Post)
 	user, err := currentUser(ctx)
@@ -26,6 +37,15 @@ func createPost(ctx *gin.Context) {
 	})
 }
 
+// ShowAccount godoc
+// @Summary      Show an account
+// @Description  get string by ID
+// @Tags         accounts
+// @Accept       json
+// @Produce      json
+// @Param        id   path      int  true  "Account ID"
+// @Success      200  {object}  store.Post
+// @Router       /accounts/{id} [get]
 func indexPosts(ctx *gin.Context) {
 	user, err := currentUser(ctx)
 	if err != nil {
@@ -42,6 +62,12 @@ func indexPosts(ctx *gin.Context) {
 	})
 }
 
+// @Summary 查看迁移任务详细信息
+// @Description 查看迁移任务详细信息
+// @Accept json
+// @Produce  json
+// @Param task_id path string true "task_id"
+// @Router /task [get]
 func updatePost(ctx *gin.Context) {
 	jsonPost := ctx.MustGet(gin.BindKey).(*store.Post)
 	user, err := currentUser(ctx)

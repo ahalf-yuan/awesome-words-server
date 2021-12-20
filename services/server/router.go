@@ -6,6 +6,12 @@ import (
 	"wordshub/services/store"
 
 	"github.com/gin-gonic/gin"
+	"github.com/iris-contrib/swagger/v12/swaggerFiles"
+
+	ginSwagger "github.com/swaggo/gin-swagger"
+
+	// swagger embed files
+	_ "wordshub/docs"
 )
 
 func setRouter(cfg conf.Config) *gin.Engine {
@@ -27,6 +33,8 @@ func setRouter(cfg conf.Config) *gin.Engine {
 		})
 	})
 
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
 	// Create API route group
 	api := router.Group("/api")
 	api.Use(customErrors)
@@ -39,7 +47,10 @@ func setRouter(cfg conf.Config) *gin.Engine {
 	catalog := api.Group("/catalog")
 	catalog.Use(authorization)
 	{
+		catalog.GET("/list", fetchCatalog)
 		catalog.POST("/create", gin.Bind(store.Catalog{}), createCatalog)
+		catalog.PUT("/update", gin.Bind(store.Catalog{}), updateCatalog)
+		catalog.DELETE("/delete/:id", deleteCatalog)
 	}
 
 	authorized := api.Group("/")
