@@ -34,9 +34,7 @@ awesome-words-server
 |   ├─Dockerfile
 |   └docker-compose.yml
 ├─cmd
-|  ├─wordshub
-|  |    ├─main.go
-|  |    └─wordshub
+|  └─wordshub
 ```
 ### 数据库迁移
 ```
