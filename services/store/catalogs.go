@@ -29,7 +29,7 @@ func FetchUserCatalogs(user *User) ([]Catalog, error) {
 	userId := user.ID
 	var catalog []Catalog
 
-	err := db.Model(catalog).
+	err := db.Model(&catalog).
 		Where("user_id = ?", userId).
 		Select()
 
