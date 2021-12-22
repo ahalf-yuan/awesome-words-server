@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"strings"
 	"wordshub/services/store"
 
 	"github.com/gin-gonic/gin"
@@ -13,21 +12,12 @@ import (
 )
 
 func authorization(ctx *gin.Context) {
-	authHeader := ctx.GetHeader("Authorization")
-	if authHeader == "" {
-		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Authorization header missing."})
+	cookieJwt, err := ctx.Cookie("wordhub_jwt")
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Authorization fail."})
 		return
 	}
-	headerParts := strings.Split(authHeader, " ")
-	if len(headerParts) != 2 {
-		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Authorization header format is not valid."})
-		return
-	}
-	if headerParts[0] != "Bearer" {
-		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Authorization header is missing bearer part."})
-		return
-	}
-	userID, err := verifyJWT(headerParts[1])
+	userID, err := verifyJWT(cookieJwt)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
 		return

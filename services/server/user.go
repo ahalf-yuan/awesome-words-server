@@ -13,9 +13,12 @@ func signUp(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+
+	jwt := generateJWT(user)
+	ctx.SetCookie("wordhub_jwt", jwt, 60*60*24, "/", "*", true, true) // 有效期一天
 	ctx.JSON(http.StatusOK, gin.H{
 		"msg": "Signed up successfully.",
-		"jwt": generateJWT(user),
+		"jwt": jwt,
 	})
 }
 
@@ -27,8 +30,11 @@ func signIn(ctx *gin.Context) {
 		return
 	}
 
+	jwt := generateJWT(user)
+	ctx.SetCookie("wordhub_jwt", jwt, 60*60*24, "/", "*", true, true) // 有效期一天
+
 	ctx.JSON(http.StatusOK, gin.H{
 		"msg": "Signed in successfully.",
-		"jwt": generateJWT(user),
+		"jwt": jwt,
 	})
 }
