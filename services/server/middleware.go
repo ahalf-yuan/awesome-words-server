@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"wordshub/services/common/errno"
 	"wordshub/services/store"
 
 	"github.com/gin-gonic/gin"
@@ -14,17 +15,17 @@ import (
 func authorization(ctx *gin.Context) {
 	cookieJwt, err := ctx.Cookie("wordhub_jwt")
 	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Authorization fail."})
+		ctx.AbortWithStatusJSON(http.StatusUnauthorized, errno.ErrSignParam)
 		return
 	}
 	userID, err := verifyJWT(cookieJwt)
 	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
+		ctx.AbortWithStatusJSON(http.StatusUnauthorized, errno.ErrSignParam)
 		return
 	}
 	user, err := store.FetchUser(userID)
 	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
+		ctx.AbortWithStatusJSON(http.StatusUnauthorized, errno.ErrUserIDNotExit)
 		return
 	}
 	ctx.Set("user", user)
