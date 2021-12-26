@@ -49,3 +49,21 @@ func signIn(ctx *gin.Context) {
 		"jwt": jwt,
 	}))
 }
+
+func signOut(ctx *gin.Context) {
+	ctx.SetCookie("wordhub_jwt", "", 60*60*24, "/", "*", true, true)
+	ctx.JSON(http.StatusOK, errno.OK.WithData)
+}
+
+func userInfo(ctx *gin.Context) {
+	user, err := currentUser(ctx)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, errno.ErrServer)
+		return
+	}
+
+	ctx.JSON(http.StatusOK, errno.OK.WithData(gin.H{
+		"id":       user.ID,
+		"username": user.Username,
+	}))
+}

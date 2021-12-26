@@ -41,6 +41,12 @@ func setRouter(cfg conf.Config) *gin.Engine {
 	{
 		api.POST("/signup", gin.Bind(store.User{}), signUp)
 		api.POST("/signin", gin.Bind(store.User{}), signIn)
+		api.POST("/signout", signOut)
+	}
+
+	api.Use(authorization)
+	{
+		api.POST("/userinfo", userInfo)
 	}
 
 	// Create API route group
