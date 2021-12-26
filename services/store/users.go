@@ -79,6 +79,21 @@ func FetchUser(id int) (*User, error) {
 	return user, nil
 }
 
+func FetchUserByName(name string) (*User, error) {
+	user := new(User)
+	user.Username = name
+	err := db.Model(user).Returning("*").Where("username = ?", name).Select()
+	if err == pg.ErrNoRows {
+		log.Error().Err(err).Msg("FetchUserByName No Rows \n")
+		return nil, nil
+	}
+	if err != nil {
+		log.Error().Err(err).Msg("Error fetching user")
+		return nil, err
+	}
+	return user, nil
+}
+
 func GenerateSalt() ([]byte, error) {
 	salt := make([]byte, 16)
 	if _, err := rand.Read(salt); err != nil {
