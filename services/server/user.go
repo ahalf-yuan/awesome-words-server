@@ -46,13 +46,15 @@ func signIn(ctx *gin.Context) {
 	ctx.SetCookie("wordhub_jwt", jwt, 60*60*24, "/", "*", true, true) // 有效期一天
 
 	ctx.JSON(http.StatusOK, errno.OK.WithData(gin.H{
-		"jwt": jwt,
+		"jwt":      jwt,
+		"id":       user.ID,
+		"username": user.Username,
 	}))
 }
 
 func signOut(ctx *gin.Context) {
 	ctx.SetCookie("wordhub_jwt", "", 60*60*24, "/", "*", true, true)
-	ctx.JSON(http.StatusOK, errno.OK.WithData)
+	ctx.JSON(http.StatusOK, errno.OK)
 }
 
 func userInfo(ctx *gin.Context) {
