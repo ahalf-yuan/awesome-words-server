@@ -1,4 +1,4 @@
-# AWESOME-WORDS-HUB
+# AWESOME-WORDS-SERVER
 
 ```
 awesome-words-server
