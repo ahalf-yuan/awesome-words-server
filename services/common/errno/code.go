@@ -16,6 +16,7 @@ var (
 	ErrServer    = NewError(10001, "服务异常，请联系管理员")
 	ErrParam     = NewError(10002, "参数有误")
 	ErrSignParam = NewError(10003, "签名参数有误")
+	ErrDB        = NewError(10004, "数据库操作有误")
 
 	// 模块级错误码 - 用户模块
 	ErrUserPhone          = NewError(20101, "用户手机号不合法")
@@ -24,4 +25,5 @@ var (
 	ErrUserNameNotUnique  = NewError(20104, "用户名不唯一")
 	ErrUserIDNotExit      = NewError(20105, "用户不存在")
 	ErrUserNameOrPassword = NewError(20106, "用户名或密码有误")
+	ErrUserContext        = NewError(20107, "用户信息解析失败")
 )

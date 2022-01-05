@@ -44,12 +44,13 @@ func setRouter(cfg conf.Config) *gin.Engine {
 		api.POST("/signout", signOut)
 	}
 
-	api.Use(authorization)
-	{
-		api.POST("/userinfo", userInfo)
-	}
+	// api.Use(authorization)
+	// {
+	// 	api.POST("/userinfo", userInfo)
+	// }
 
 	words := api.Group("/words")
+	words.Use(authorization)
 	{
 		words.POST("/create", gin.Bind(store.Words{}), createWord)
 	}

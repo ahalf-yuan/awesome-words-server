@@ -1,7 +1,6 @@
 package store
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/rs/zerolog/log"
@@ -33,7 +32,7 @@ type UWords struct {
 func AddUserWord(user *User, word *Words) error {
 	// insert word entity with doing nothing
 
-	_, err := db.Model(word).
+	var _, err = db.Model(word).
 		Column("id").
 		Where("word = ?word").
 		OnConflict("DO NOTHING"). // OnConflict is optional
@@ -51,16 +50,16 @@ func AddUserWord(user *User, word *Words) error {
 	}
 
 	// created - false 已存在该记录
-	created, err := db.Model(&uwords).
+	var _, errCreate = db.Model(&uwords).
 		Where("user_id = ?", user.ID).
 		Where("word_id = ?", word.ID).
 		OnConflict("DO NOTHING").
 		Returning("id").
 		SelectOrInsert()
 
-	fmt.Println("crested =>", created)
+	// fmt.Println("crested =>", created)
 
-	if err != nil {
+	if errCreate != nil {
 		log.Error().Err(err).Msg("Error inserting new word")
 		return err
 	}
