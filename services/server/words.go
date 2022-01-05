@@ -20,5 +20,24 @@ func createWord(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, errno.ErrDB.WithData(gin.H{"error": err.Error()}))
 		return
 	}
-	ctx.JSON(http.StatusOK, errno.OK)
+	ctx.JSON(http.StatusOK, errno.OK.WithData(gin.H{}))
+}
+
+func indexWords(ctx *gin.Context) {
+	user, err := currentUser(ctx)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	words, err := store.FetchUserWords(user)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, errno.OK.WithData(gin.H{
+		"msg":  "Catalogs fetched successfully.",
+		"data": words,
+	}))
 }

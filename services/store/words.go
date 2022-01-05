@@ -8,7 +8,7 @@ import (
 
 type Words struct {
 	ID         int       `json:"id"`
-	Word       string    `json:"word"`
+	Word       string    `json:"word" binding:"required"`
 	Sentence   string    `json:"sentence"`
 	Translate  string    `json:"translate"`
 	Note       string    `json:"note"`
@@ -18,6 +18,8 @@ type Words struct {
 	Extra      []string  `json:"extra"`
 	CreatedAt  time.Time `json:"createTime"`
 	ModifiedAt time.Time `json:"modifiedTime"`
+	UserId     int       `pg:"-" json:"userId"`
+	WordId     int       `pg:"-" json:"wordId"`
 }
 
 type UWords struct {
@@ -65,4 +67,22 @@ func AddUserWord(user *User, word *Words) error {
 	}
 
 	return dbError(err)
+}
+
+func FetchUserWords(user *User) ([]Words, error) {
+	userId := user.ID
+	var words []Words
+
+	err := db.Model(&words).
+		ColumnExpr("words.*").
+		ColumnExpr("a.user_id AS user_id, a.word_id AS word_id").
+		Join("JOIN u_words AS a ON a.word_id = words.id").
+		Where("user_id=?", userId).
+		Select()
+
+	if err != nil {
+		log.Error().Err(err).Msg("Error fetching user's catalogs")
+		return nil, dbError(err)
+	}
+	return words, nil
 }

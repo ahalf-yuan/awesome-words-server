@@ -60,7 +60,7 @@ func signOut(ctx *gin.Context) {
 func userInfo(ctx *gin.Context) {
 	user, err := currentUser(ctx)
 	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusInternalServerError, errno.ErrServer)
+		ctx.AbortWithStatusJSON(http.StatusUnauthorized, errno.ErrUserContext)
 		return
 	}
 
