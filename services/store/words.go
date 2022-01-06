@@ -1,14 +1,16 @@
 package store
 
 import (
+	"fmt"
 	"time"
 
+	"github.com/go-pg/pg/v10"
 	"github.com/rs/zerolog/log"
 )
 
 type Words struct {
 	ID         int       `json:"id"`
-	Word       string    `json:"word" binding:"required"`
+	Word       string    `json:"word" from:"word" binding:"required"`
 	Sentence   string    `json:"sentence"`
 	Translate  string    `json:"translate"`
 	Note       string    `json:"note"`
@@ -85,4 +87,43 @@ func FetchUserWords(user *User) ([]Words, error) {
 		return nil, dbError(err)
 	}
 	return words, nil
+}
+
+func DeleteWord(id int) error {
+	uword := new(UWords)
+	uword.ID = id
+
+	_, err := db.Model(uword).WherePK().Delete()
+	if err != nil {
+		log.Error().Err(err).Msg("Error updating catalog")
+	}
+	return dbError(err)
+}
+
+// 结构体与数组一样，都是值传递，比如当把数组或结构体作为实参传给函数的形参时，会复制一个副本，所以为了提高性能，一般不会把数组直接传递给函数，而是使用切片(引用类型)代替，而把结构体传给函数时，可以使用指针结构体
+// across wordId & userId to get the recordId in db
+func FetchWordById(wordId int, userId int) (*UWords, error) {
+	uword := &UWords{
+		WordId: wordId,
+		UserId: userId,
+	}
+
+	err := db.Model(uword).
+		Where("word_id=?", wordId).
+		Where("user_id=?", userId).
+		Column("id").
+		Select()
+
+	if err == pg.ErrNoRows {
+		fmt.Println("No Rows!!")
+		log.Error().Err(err).Msg("No Rows")
+		return nil, nil
+	}
+
+	if err != nil {
+		log.Error().Err(err).Msg("Error fetching word in u_words")
+		return nil, err
+	}
+
+	return uword, dbError(err)
 }

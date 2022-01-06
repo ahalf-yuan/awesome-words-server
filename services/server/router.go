@@ -35,6 +35,8 @@ func setRouter(cfg conf.Config) *gin.Engine {
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
+	// router.Use(CORSMiddleware())
+
 	// Create API route group
 	api := router.Group("/api")
 	api.Use(customErrors)
@@ -55,6 +57,7 @@ func setRouter(cfg conf.Config) *gin.Engine {
 	{
 		words.GET("/words", indexWords)
 		words.POST("/words", gin.Bind(store.Words{}), createWord)
+		words.DELETE("/words/:id", delWord)
 	}
 
 	// Create API route group

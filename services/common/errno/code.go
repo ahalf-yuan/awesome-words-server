@@ -2,7 +2,7 @@ package errno
 
 // 业务错误码规范：5位
 // 服务级别错误码：1 位数进行表示，比如 1 为系统级错误；2 为普通错误，通常是由用户非法操作引起。
-// 模块级错误码：2 位数进行表示，比如 01 为用户模块；02 为订单模块。
+// 模块级错误码：2 位数进行表示，比如 01 为用户模块；02 为单词模块。
 // 具体错误码：2 位数进行表示，比如 01 为手机号不合法；02 为验证码输入错误。
 
 // 其中
@@ -26,4 +26,8 @@ var (
 	ErrUserIDNotExit      = NewError(20105, "用户不存在")
 	ErrUserNameOrPassword = NewError(20106, "用户名或密码有误")
 	ErrUserContext        = NewError(20107, "用户信息解析失败")
+
+	// 模块级错误码 - word模块
+	ErrWordID            = NewError(20201, "无效ID")
+	ErrWordExistWithUser = NewError(20202, "无效ID")
 )
