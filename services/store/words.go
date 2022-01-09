@@ -22,12 +22,14 @@ type Words struct {
 	ModifiedAt time.Time `json:"modifiedTime"`
 	UserId     int       `pg:"-" json:"userId"`
 	WordId     int       `pg:"-" json:"wordId"`
+	CatalogId  int       `pg:"-" json:"catalogId"`
 }
 
 type UWords struct {
-	ID     int `json:"id"`
-	WordId int `json:"word_id"`
-	UserId int `json:"user_id"`
+	ID        int `json:"id"`
+	WordId    int `json:"wordId"`
+	UserId    int `json:"userId"`
+	CatalogId int `json:"catalogId"`
 }
 
 // 先查找 words 表，如果words表已存在，不需要写入，返回 word_id
@@ -44,19 +46,21 @@ func AddUserWord(user *User, word *Words) error {
 		SelectOrInsert()
 
 	if err != nil {
-		log.Error().Err(err).Msg("Error inserting new word")
+		log.Error().Err(err).Msg("Error selecting new word")
 		return err
 	}
 
 	uwords := UWords{
-		UserId: user.ID,
-		WordId: word.ID,
+		UserId:    user.ID,
+		WordId:    word.ID,
+		CatalogId: word.CatalogId,
 	}
 
 	// created - false 已存在该记录
 	var _, errCreate = db.Model(&uwords).
 		Where("user_id = ?", user.ID).
 		Where("word_id = ?", word.ID).
+		Where("catalog_id = ?", word.CatalogId). // 一个分类下可以插入多条
 		OnConflict("DO NOTHING").
 		Returning("id").
 		SelectOrInsert()

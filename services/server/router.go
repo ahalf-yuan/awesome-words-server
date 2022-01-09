@@ -58,6 +58,7 @@ func setRouter(cfg conf.Config) *gin.Engine {
 		words.GET("/words", indexWords)
 		words.POST("/words", gin.Bind(store.Words{}), createWord)
 		words.DELETE("/words/:id", delWord)
+		// selectedText,userId
 	}
 
 	// Create API route group
@@ -65,6 +66,7 @@ func setRouter(cfg conf.Config) *gin.Engine {
 	catalog.Use(authorization)
 	{
 		catalog.GET("/list", fetchCatalog)
+		catalog.GET("/list/count", fetchCatalogAndCount)
 		catalog.POST("/create", gin.Bind(store.Catalog{}), createCatalog)
 		catalog.PUT("/update", gin.Bind(store.Catalog{}), updateCatalog)
 		catalog.DELETE("/delete/:id", deleteCatalog)
