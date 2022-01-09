@@ -30,7 +30,9 @@ func fetchCatalog(ctx *gin.Context) {
 
 	// merge catalog with count data
 	var res []interface{}
-	res = mergeSlice(&catalog, &catalogCount)
+	if catalog != nil {
+		res = mergeSlice(&catalog, &catalogCount)
+	}
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"msg":  "Catalogs fetched successfully.",
