@@ -22,6 +22,53 @@ func fetchCatalog(ctx *gin.Context) {
 		return
 	}
 
+	catalogCount, err := store.FetchUserCatalogAndCount(user)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	// merge catalog with count data
+	var res []interface{}
+	res = mergeSlice(&catalog, &catalogCount)
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"msg":  "Catalogs fetched successfully.",
+		"data": res,
+	})
+}
+
+func mergeSlice(catalog *[]store.Catalog, catalogCount *[]store.CatalogCount) []interface{} {
+	var interfaceSlice []interface{} = make([]interface{}, len(*catalogCount))
+
+	catalogMap := make(map[int]store.Catalog)
+	for _, item := range *catalog {
+		catalogMap[item.ID] = item
+	}
+
+	for i, item := range *catalogCount {
+		currCatalog := catalogMap[item.CatalogId]
+		currCatalog.Count = item.Count
+		currCatalog.ID = item.CatalogId
+		interfaceSlice[i] = currCatalog
+	}
+
+	return interfaceSlice
+}
+
+func fetchCatalogAndCount(ctx *gin.Context) {
+	user, err := currentUser(ctx)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	catalog, err := store.FetchUserCatalogAndCount(user)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
 	ctx.JSON(http.StatusOK, gin.H{
 		"msg":  "Catalogs fetched successfully.",
 		"data": catalog,

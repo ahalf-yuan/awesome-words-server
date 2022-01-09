@@ -13,6 +13,12 @@ type Catalog struct {
 	CreatedAt  time.Time `json:"createTime"`
 	ModifiedAt time.Time `json:"modifiedTime"`
 	UserID     int       `json:"-"`
+	Count      int       `pg:"-"`
+}
+
+type CatalogCount struct {
+	CatalogId int `json:"catalogId"`
+	Count     int `json:"count"`
 }
 
 func AddCatalogNode(user *User, catalog *Catalog) error {
@@ -37,7 +43,28 @@ func FetchUserCatalogs(user *User) ([]Catalog, error) {
 		log.Error().Err(err).Msg("Error fetching user's catalogs")
 		return nil, dbError(err)
 	}
+
 	return catalog, nil
+}
+
+func FetchUserCatalogAndCount(user *User) ([]CatalogCount, error) {
+	var res []CatalogCount
+
+	uwords := UWords{
+		UserId: user.ID,
+	}
+
+	err := db.Model(&uwords).
+		Column("catalog_id").
+		ColumnExpr("count(*) AS count").
+		Group("catalog_id", "user_id").
+		Having("user_id=?", user.ID).
+		Select(&res)
+
+	if err != nil {
+		return nil, err
+	}
+	return res, nil
 }
 
 func FetchCatalog(id int) (*Catalog, error) {
