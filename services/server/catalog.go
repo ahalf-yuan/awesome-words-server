@@ -39,18 +39,19 @@ func fetchCatalog(ctx *gin.Context) {
 }
 
 func mergeSlice(catalog *[]store.Catalog, catalogCount *[]store.CatalogCount) []interface{} {
-	var interfaceSlice []interface{} = make([]interface{}, len(*catalogCount))
+	var interfaceSlice []interface{} = make([]interface{}, len(*catalog)+1)
 
-	catalogMap := make(map[int]store.Catalog)
-	for _, item := range *catalog {
-		catalogMap[item.ID] = item
+	catalogCountMap := make(map[int]int)
+	for _, item := range *catalogCount {
+		if item.CatalogId == -1 {
+			interfaceSlice[0] = store.Catalog{ID: item.CatalogId, Count: item.Count}
+		}
+		catalogCountMap[item.CatalogId] = item.Count
 	}
 
-	for i, item := range *catalogCount {
-		currCatalog := catalogMap[item.CatalogId]
-		currCatalog.Count = item.Count
-		currCatalog.ID = item.CatalogId
-		interfaceSlice[i] = currCatalog
+	for i, item := range *catalog {
+		item.Count = catalogCountMap[item.ID]
+		interfaceSlice[i+1] = item
 	}
 
 	return interfaceSlice

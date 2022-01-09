@@ -13,7 +13,7 @@ type Catalog struct {
 	CreatedAt  time.Time `json:"createTime"`
 	ModifiedAt time.Time `json:"modifiedTime"`
 	UserID     int       `json:"-"`
-	Count      int       `pg:"-"`
+	Count      int       `pg:"-" json:"count"`
 }
 
 type CatalogCount struct {
