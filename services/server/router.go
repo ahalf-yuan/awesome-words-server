@@ -61,6 +61,15 @@ func setRouter(cfg conf.Config) *gin.Engine {
 		// selectedText,userId
 	}
 
+	trans := api.Group("/trans")
+	trans.Use(authorization)
+	{
+		// trans.GET("/words", indexWords)
+		trans.POST("/youdao", gin.Bind(store.YoudaoReq{}), youdao)
+		// trans.DELETE("/words/:id", delWord)
+		// selectedText,userId
+	}
+
 	// Create API route group
 	catalog := api.Group("/catalog")
 	catalog.Use(authorization)
