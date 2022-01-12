@@ -93,6 +93,25 @@ func FetchUserWords(user *User) ([]Words, error) {
 	return words, nil
 }
 
+func FetchUserWordsByCatalog(user *User, catalogId int) ([]Words, error) {
+	userId := user.ID
+	var words []Words
+
+	err := db.Model(&words).
+		ColumnExpr("words.*").
+		ColumnExpr("a.user_id AS user_id, a.word_id AS word_id").
+		Join("JOIN u_words AS a ON a.word_id = words.id").
+		Where("user_id=?", userId).
+		Where("a.catalog_id=?", catalogId).
+		Select()
+
+	if err != nil {
+		log.Error().Err(err).Msg("Error fetching user's catalogs")
+		return nil, dbError(err)
+	}
+	return words, nil
+}
+
 func DeleteWord(id int) error {
 	uword := new(UWords)
 	uword.ID = id

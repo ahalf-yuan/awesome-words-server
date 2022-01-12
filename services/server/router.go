@@ -3,6 +3,7 @@ package server
 import (
 	"net/http"
 	"wordshub/services/conf"
+	"wordshub/services/models"
 	"wordshub/services/store"
 
 	"github.com/gin-gonic/gin"
@@ -56,7 +57,7 @@ func setRouter(cfg conf.Config) *gin.Engine {
 	words.Use(authorization)
 	{
 		words.GET("/words", indexWords)
-		words.POST("/words", gin.Bind(store.Words{}), createWord)
+		words.POST("/words/create", gin.Bind(store.Words{}), createWord)
 		words.DELETE("/words/:id", delWord)
 		// selectedText,userId
 	}
@@ -65,7 +66,8 @@ func setRouter(cfg conf.Config) *gin.Engine {
 	trans.Use(authorization)
 	{
 		// trans.GET("/words", indexWords)
-		trans.POST("/youdao", gin.Bind(store.YoudaoReq{}), youdao)
+		trans.POST("/youdao", gin.Bind(models.YoudaoReq{}), youdao)
+		trans.GET("/iciba", gin.Bind(models.YoudaoReq{}), iciba)
 		// trans.DELETE("/words/:id", delWord)
 		// selectedText,userId
 	}

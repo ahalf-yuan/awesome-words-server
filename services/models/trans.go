@@ -1,4 +1,4 @@
-package store
+package models
 
 type YoudaoReq struct {
 	Word string `json:"word" from:"word"`
