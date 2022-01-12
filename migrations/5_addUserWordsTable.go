@@ -13,7 +13,7 @@ func init() {
 			id BIGSERIAL PRIMARY KEY,
       user_id INT REFERENCES users ON DELETE CASCADE,
       word_id INT REFERENCES words ON DELETE CASCADE,
-      catalog_id INT DEFAULT -1,
+      catalog_id INT DEFAULT -1 REFERENCES catalogs ON DELETE CASCADE,
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 			modified_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 		)`)

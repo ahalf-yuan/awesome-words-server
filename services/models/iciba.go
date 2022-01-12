@@ -17,7 +17,7 @@ type Exchange struct {
 }
 
 type Part struct {
-	Pard  string   `json:"part"`
+	Part  string   `json:"part"`
 	Means []string `json:"means"`
 }
 

@@ -67,7 +67,9 @@ func setRouter(cfg conf.Config) *gin.Engine {
 	{
 		// trans.GET("/words", indexWords)
 		trans.POST("/youdao", gin.Bind(models.YoudaoReq{}), youdao)
-		trans.GET("/iciba", gin.Bind(models.YoudaoReq{}), iciba)
+		trans.GET("/iciba", iciba)
+		trans.GET("/iciba/sentence", icibaSentence)
+		trans.GET("/iciba/sug", icibaSug)
 		// trans.DELETE("/words/:id", delWord)
 		// selectedText,userId
 	}

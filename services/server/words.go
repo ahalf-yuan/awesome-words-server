@@ -21,7 +21,7 @@ func createWord(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, errno.ErrDB.WithData(gin.H{"error": err.Error()}))
 		return
 	}
-	ctx.JSON(http.StatusOK, errno.OK.WithData(gin.H{}))
+	ctx.JSON(http.StatusOK, errno.OK.WithData(word))
 }
 
 func indexWords(ctx *gin.Context) {
@@ -39,6 +39,23 @@ func indexWords(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, errno.OK.WithData(words))
 }
+
+// TODO：filter words by catalog_id
+// func getWordsByCatalog(ctx *gin.Context) {
+// 	user, err := currentUser(ctx)
+// 	if err != nil {
+// 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+// 		return
+// 	}
+
+// 	words, err := store.FetchUserWordsByCatalog(user)
+// 	if err != nil {
+// 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+// 		return
+// 	}
+
+// 	ctx.JSON(http.StatusOK, errno.OK.WithData(words))
+// }
 
 func delWord(ctx *gin.Context) {
 	paramID := ctx.Param("id")
