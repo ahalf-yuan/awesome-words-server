@@ -1,7 +1,11 @@
 package server
 
 import (
+	"fmt"
+	"math/rand"
 	"net/http"
+	"strings"
+	"time"
 	"wordshub/services/common/errno"
 	"wordshub/services/store"
 
@@ -11,6 +15,7 @@ import (
 func signUp(ctx *gin.Context) {
 	user := ctx.MustGet(gin.BindKey).(*store.User)
 
+	// 用户名不唯一
 	fetchUser, err := store.FetchUserByName(user.Username)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusOK, errno.ErrServer)
@@ -20,6 +25,12 @@ func signUp(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusOK, errno.ErrUserNameNotUnique)
 		return
 	}
+
+	// generate random-avatar and nick_name
+	user.Avatar = getRandomAvatar()
+	user.NickName = strings.Split(user.Username, "@")[0]
+	// only email
+	user.Type = "email"
 
 	if err := store.AddUser(user); err != nil {
 		ctx.AbortWithStatusJSON(http.StatusOK, errno.ErrServer)
@@ -68,4 +79,12 @@ func userInfo(ctx *gin.Context) {
 		"id":       user.ID,
 		"username": user.Username,
 	}))
+}
+
+func getRandomAvatar() string {
+	const multiavatarHost = "https://api.multiavatar.com/"
+	const apiKey = "ladYhX9oRSBiL7"
+	rand.Seed(time.Now().UnixNano())
+	randomKey := rand.Intn(100)
+	return fmt.Sprint(multiavatarHost, randomKey, ".svg", "?apikey=", apiKey)
 }

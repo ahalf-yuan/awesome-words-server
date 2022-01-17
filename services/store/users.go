@@ -11,14 +11,18 @@ import (
 )
 
 type User struct {
-	ID             int
-	Username       string `binding:"required,min=5,max=30"`
-	Password       string `pg:"-" binding:"required,min=3,max=32"`
-	HashedPassword []byte `json:"-"`
-	Salt           []byte `json:"-"`
-	CreatedAt      time.Time
-	ModifiedAt     time.Time
-	Posts          []*Post `json:"-" pg:"fk:user_id,rel:has-many,on_delete:CASCADE"`
+	ID                int
+	Username          string `binding:"required,email"`
+	Password          string `pg:"-" binding:"required,min=3,max=32"`
+	HashedPassword    []byte `json:"-"`
+	Salt              []byte `json:"-"`
+	Avatar            string `json:"avatar" from:"avatar"`
+	NickName          string `json:"nickName"`
+	Type              string `json:"type"`
+	ThirdUniqueAcount string `json:"thirdUniqueAcount"`
+	CreatedAt         time.Time
+	ModifiedAt        time.Time
+	Posts             []*Post `json:"-" pg:"fk:user_id,rel:has-many,on_delete:CASCADE"`
 }
 
 var _ pg.AfterSelectHook = (*User)(nil)
@@ -42,6 +46,7 @@ func AddUser(user *User) error {
 		return err
 	}
 
+	// salt 随机密钥；HashedPassword 加密后的密钥
 	user.Salt = salt
 	user.HashedPassword = hashedPassword
 
@@ -84,7 +89,7 @@ func FetchUserByName(name string) (*User, error) {
 	user.Username = name
 	err := db.Model(user).Returning("*").Where("username = ?", name).Select()
 	if err == pg.ErrNoRows {
-		log.Error().Err(err).Msg("FetchUserByName No Rows \n")
+		// log.Error().Err(err).Msg("FetchUserByName No Rows \n")
 		return nil, nil
 	}
 	if err != nil {
