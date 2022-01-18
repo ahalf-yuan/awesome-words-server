@@ -8,26 +8,32 @@ import (
 )
 
 const (
-	hostKey       = "WORDSHUB_HOST"
-	portKey       = "WORDSHUB_PORT"
-	dbHostKey     = "WORDSHUB_DB_HOST"
-	dbPortKey     = "WORDSHUB_DB_PORT"
-	dbNameKey     = "WORDSHUB_DB_NAME"
-	dbUserKey     = "WORDSHUB_DB_USER"
-	dbPasswordKey = "WORDSHUB_DB_PASSWORD"
-	jwtSecretKey  = "WORDSHUB_JWT_SECRET"
+	hostKey        = "WORDSHUB_HOST"
+	portKey        = "WORDSHUB_PORT"
+	dbHostKey      = "WORDSHUB_DB_HOST"
+	dbPortKey      = "WORDSHUB_DB_PORT"
+	dbNameKey      = "WORDSHUB_DB_NAME"
+	dbUserKey      = "WORDSHUB_DB_USER"
+	dbPasswordKey  = "WORDSHUB_DB_PASSWORD"
+	jwtSecretKey   = "WORDSHUB_JWT_SECRET"
+	appIdKey       = "APP_ID"
+	appSecretKey   = "APPSECRET"
+	appCloudEnvKey = "APP_CLOUD_ENV"
 )
 
 type Config struct {
-	Host       string
-	Port       string
-	DbHost     string
-	DbPort     string
-	DbName     string
-	DbUser     string
-	DbPassword string
-	JwtSecret  string
-	Env        string
+	Host        string
+	Port        string
+	DbHost      string
+	DbPort      string
+	DbName      string
+	DbUser      string
+	DbPassword  string
+	JwtSecret   string
+	Env         string
+	AppId       string
+	AppSecret   string
+	AppCloudEnv string
 }
 
 func NewConfig(env string) Config {
@@ -75,16 +81,34 @@ func NewConfig(env string) Config {
 		logAndPanic(jwtSecretKey)
 	}
 
+	appId, ok := os.LookupEnv(appIdKey)
+	if !ok || jwtSecret == "" {
+		logAndPanic(appIdKey)
+	}
+
+	appSecret, ok := os.LookupEnv(appSecretKey)
+	if !ok || jwtSecret == "" {
+		logAndPanic(appSecretKey)
+	}
+
+	appCloudEnv, ok := os.LookupEnv(appCloudEnvKey)
+	if !ok || appCloudEnv == "" {
+		logAndPanic(appCloudEnvKey)
+	}
+
 	return Config{
-		Host:       host,
-		Port:       port,
-		DbHost:     dbHost,
-		DbPort:     dbPort,
-		DbName:     dbName,
-		DbUser:     dbUser,
-		DbPassword: dbPassword,
-		JwtSecret:  jwtSecret,
-		Env:        env,
+		Host:        host,
+		Port:        port,
+		DbHost:      dbHost,
+		DbPort:      dbPort,
+		DbName:      dbName,
+		DbUser:      dbUser,
+		DbPassword:  dbPassword,
+		JwtSecret:   jwtSecret,
+		Env:         env,
+		AppId:       appId,
+		AppSecret:   appSecret,
+		AppCloudEnv: appCloudEnv,
 	}
 }
 

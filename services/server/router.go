@@ -53,6 +53,20 @@ func setRouter(cfg conf.Config) *gin.Engine {
 		user.POST("/info", userInfo)
 	}
 
+	weapp := api.Group("/weapp")
+	// weapp.Use(authorization)
+	{
+		weapp.GET("/test", func(c *gin.Context) {
+			weappText(c, cfg)
+		})
+		weapp.GET("/refresh/login", func(c *gin.Context) {
+			queryUserInfo(c, cfg)
+		})
+		weapp.GET("/wxcode", func(c *gin.Context) {
+			getWxCode(c, cfg)
+		})
+	}
+
 	words := api.Group("/")
 	words.Use(authorization)
 	{
