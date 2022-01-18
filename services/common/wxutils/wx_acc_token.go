@@ -71,19 +71,21 @@ func reqAndWriteAccToken(accessTokenReq *AccessTokenReq) (string, error) {
 
 	jMap, err := requestToken(accessTokenReq.AppId, accessTokenReq.AppSecret)
 	accessToken, _ := jMap["access_token"].(string)
-	expiresIn, _ := jMap["expires_in"].(int64)
+	// expiresIn, _ := jMap["expires_in"].(int64)
 	if err != nil {
 		return accessToken, err
 	}
 
 	content := AccTokenCache{
 		AccessToken: accessToken,
-		ExpiresIn:   expiresIn,
+		ExpiresIn:   7200,
 		RecordTime:  time.Now().Unix(),
 	}
 
-	// trans struct to []byte
-	contentStr := EncodeToBytes(&content)
+	contentStr, err := json.Marshal(content)
+	if err != nil {
+		// fmt.Println("error:", err)
+	}
 	writeFile(TOKEN_FILE_NAME, contentStr)
 
 	return accessToken, nil

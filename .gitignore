@@ -28,3 +28,4 @@ chrome-user-data
 *.swo
 .env.local
 .env.prod
+mp_token_info.json

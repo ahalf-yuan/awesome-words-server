@@ -75,11 +75,16 @@ func queryUserInfo(ctx *gin.Context, conf conf.Config) {
 func getWxCode(ctx *gin.Context, conf conf.Config) {
 	const wxPagePath = "pages/scan_login/index"
 
+	query := ctx.Request.URL.Query()
+	uuid := query.Get("uuid")
+	if uuid == "" {
+		// required uuid
+	}
+
 	accessTokenReq := wxutils.AccessTokenReq{
 		AppId:     conf.AppId,
 		AppSecret: conf.AppSecret,
 	}
-	//
 	accessToken, err := wxutils.GetAccessToken(&accessTokenReq)
 	if err != nil {
 		// handle error
@@ -87,19 +92,20 @@ func getWxCode(ctx *gin.Context, conf conf.Config) {
 		return
 	}
 
-	query := ctx.Request.URL.Query()
-	uuid := query.Get("uuid")
-	scene := uuid
 	databasequeryReq := store.WxcodeReq{
-		Page:  wxPagePath,
+		// Page:  wxPagePath, // 小程序发布后才会获得有效码
 		Width: 230,
-		Scene: scene,
+		Scene: uuid,
 	}
 
 	body, _ := json.Marshal(databasequeryReq)
 
+	// fmt.Println(databasequeryReq)
+
 	const wxCodeUrl = "https://api.weixin.qq.com/wxa/getwxacodeunlimit"
 	url := wxCodeUrl + "?access_token=" + accessToken
+	// fmt.Println(url)
+
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
 	if err != nil {
 		// handle error
