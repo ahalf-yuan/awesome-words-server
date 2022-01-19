@@ -12,6 +12,7 @@ import (
 	"wordshub/services/store"
 
 	"github.com/gin-gonic/gin"
+	"github.com/rs/zerolog/log"
 )
 
 func weappText(ctx *gin.Context, conf conf.Config) {
@@ -79,6 +80,8 @@ func getWxCode(ctx *gin.Context, conf conf.Config) {
 	uuid := query.Get("uuid")
 	if uuid == "" {
 		// required uuid
+		ctx.JSON(http.StatusBadRequest, errno.ErrUserUUID)
+		return
 	}
 
 	accessTokenReq := wxutils.AccessTokenReq{
@@ -86,14 +89,25 @@ func getWxCode(ctx *gin.Context, conf conf.Config) {
 		AppSecret: conf.AppSecret,
 	}
 	accessToken, err := wxutils.GetAccessToken(&accessTokenReq)
-	if err != nil {
+	if err != nil && accessToken == "" {
 		// handle error
 		// something wrong with accessToken
+		log.Error().Err(err).Msg("Error fetching access_token")
+		ctx.JSON(http.StatusInternalServerError, errno.ErrWxAccessToken)
 		return
 	}
 
+	// 中转下，先到首页再跳转到其他页面
+	// route=scan-login&uuid=uuid
+	// var builder strings.Builder
+	// builder.WriteString("route=scan")
+	// builder.WriteString("&uuid=")
+	// builder.WriteString(uuid)
+
+	// escapeBuilder := url.QueryEscape(builder.String())
+
 	databasequeryReq := store.WxcodeReq{
-		// Page:  wxPagePath, // 小程序发布后才会获得有效码
+		Page:  wxPagePath, // 小程序发布后才会获得有效码
 		Width: 230,
 		Scene: uuid,
 	}

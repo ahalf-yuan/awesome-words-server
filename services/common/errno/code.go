@@ -26,8 +26,12 @@ var (
 	ErrUserIDNotExit      = NewError(20105, "用户不存在")
 	ErrUserNameOrPassword = NewError(20106, "用户名或密码有误")
 	ErrUserContext        = NewError(20107, "用户信息解析失败")
+	ErrUserUUID           = NewError(20108, "用户名uuid有误")
+
+	// 模块级错误码 - 微信模块
+	ErrWxAccessToken = NewError(20201, "微信access_token获取失败")
 
 	// 模块级错误码 - word模块
-	ErrWordID            = NewError(20201, "无效ID")
-	ErrWordExistWithUser = NewError(20202, "无效ID")
+	ErrWordID            = NewError(20301, "无效ID")
+	ErrWordExistWithUser = NewError(20302, "无效ID")
 )
