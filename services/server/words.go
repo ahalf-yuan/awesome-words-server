@@ -17,6 +17,15 @@ func createWord(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, errno.ErrUserContext)
 		return
 	}
+
+	if word.CatalogId == -1 {
+		err := store.AddCatalogDefault(user)
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusInternalServerError, errno.ErrUserContext)
+			return
+		}
+	}
+
 	if err := store.AddUserWord(user, word); err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, errno.ErrDB.WithData(gin.H{"error": err.Error()}))
 		return

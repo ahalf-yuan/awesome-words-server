@@ -31,6 +31,27 @@ func AddCatalogNode(user *User, catalog *Catalog) error {
 	return dbError(err)
 }
 
+func AddCatalogDefault(user *User) error {
+	catalog := Catalog{
+		UserID:   user.ID,
+		ID:       -1,
+		ParentId: -100,
+		Title:    "未分类",
+	}
+
+	_, err := db.Model(&catalog).
+		Where("user_id = ?", user.ID).
+		Where("id = ?", -1).
+		OnConflict("DO NOTHING").
+		Returning("id").
+		SelectOrInsert()
+
+	if err != nil {
+		log.Error().Err(err).Msg("Error inserting new catalog node")
+	}
+	return dbError(err)
+}
+
 func FetchUserCatalogs(user *User) ([]Catalog, error) {
 	userId := user.ID
 	var catalog []Catalog

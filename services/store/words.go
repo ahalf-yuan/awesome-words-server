@@ -22,7 +22,7 @@ type Words struct {
 	ModifiedAt time.Time `json:"modifiedTime"`
 	UserId     int       `pg:"-" json:"userId"`
 	WordId     int       `pg:"-" json:"wordId"`
-	CatalogId  int       `pg:"-" json:"catalogId"`
+	CatalogId  int       `pg:"-" json:"catalogId" binding:"required"`
 }
 
 type UWords struct {
